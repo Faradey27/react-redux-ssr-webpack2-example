@@ -1,5 +1,6 @@
 import { createStore as _createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import apiMiddleware from './middlewares/apiMiddleware';
 import createReducers from './reducer';
 
 export const inject = (store, name, asyncReducer) => {
@@ -18,7 +19,7 @@ const getMissingReducers = (reducers, data) => {
 };
 
 export default function createStore(history, helpers, data) {
-  const middleware = [routerMiddleware(history)];
+  const middleware = [apiMiddleware({ api: helpers.api }), routerMiddleware(history)];
 
   let enhancers = [applyMiddleware(...middleware)]; // eslint-disable-line
 

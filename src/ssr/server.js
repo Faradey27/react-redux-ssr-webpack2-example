@@ -16,6 +16,7 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import config from './../shared/configs/appConfig';
 
 import Provider from './../shared/components/Provider';
+import Api from './../shared/helpers/Api';
 import Html from './../shared/helpers/Html';
 import getRoutes from './../shared/routes';
 
@@ -50,11 +51,15 @@ app.use((req, res, next) => {
   return next();
 });
 
+app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}]));
+
 app.use((req, res) => {
   if (process.env.NODE_ENV !== 'production') {
     webpackIsomorphicTools.refresh();
   }
-  const providers = {};
+  const providers = {
+    api: new Api(req),
+  };
   const memoryHistory = createHistory(req.originalUrl);
   const store = createStore(memoryHistory, providers);
   const history = syncHistoryWithStore(memoryHistory, store);
@@ -94,9 +99,7 @@ app.use((req, res) => {
       loadOnServer({ ...renderProps, store, helpers: { ...providers, redirect } }).then(() => {
         const component = (
           <Provider
-            app={providers.app}
             key="provider"
-            restApp={providers.restApp}
             store={store}
           >
             <ReduxAsyncConnect {...renderProps} />

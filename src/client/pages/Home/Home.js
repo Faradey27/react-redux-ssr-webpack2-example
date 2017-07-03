@@ -2,14 +2,10 @@ import { Component } from 'react';
 import { IndexLink } from 'react-router';
 import { asyncConnect } from 'redux-connect';
 
-@asyncConnect([{
-  promise: () => new Promise((resolve) => {
-    const DELAY = 100;
+import { loadWidgets } from './../../../shared/redux/modules/widgets/actions';
 
-    setTimeout(() => {
-      resolve(true);
-    }, DELAY);
-  }),
+@asyncConnect([{
+  promise: ({ store }) => store.dispatch(loadWidgets()),
 }])
 export default class App extends Component {
   render() {

@@ -11,19 +11,23 @@ import { useScroll } from 'react-router-scroll';
 import Provider from './../shared/components/Provider';
 import createStore from './../shared/redux/create';
 import getRoutes from './../shared/routes';
+import Api from './../shared/helpers/Api';
+
 import isOnline from './utils/isOnline';
 
+const api = new Api();
 const dest = document.getElementById('content');
 
 Promise.all([window.__data ? true : isOnline()]).
   then(([online]) => {
     const data = !online ? { ...window.__data, online } : { ...window.__data, online };
-    const store = createStore(browserHistory, {}, data);
+    const store = createStore(browserHistory, { api }, data);
     const history = syncHistoryWithStore(browserHistory, store);
 
     const renderRouter = (props) => (
       <ReduxAsyncConnect
         filter={(item) => !item.deferred} // eslint-disable-line
+        helpers={{ api }}
         render={applyRouterMiddleware(useScroll())}
         {...props}
       />
