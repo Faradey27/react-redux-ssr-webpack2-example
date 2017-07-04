@@ -1,5 +1,6 @@
 import { Component, Children } from 'react';
 import PropTypes from 'prop-types';
+import i18n from './../../i18n';
 
 let didWarnAboutReceivingStore = false; // eslint-disable-line
 
@@ -40,6 +41,7 @@ export default class Provider extends Component {
   };
 
   static childContextTypes = {
+    i18n: PropTypes.object,
     store: PropTypes.shape({
       subscribe: PropTypes.func.isRequired,
       dispatch: PropTypes.func.isRequired,
@@ -54,6 +56,7 @@ export default class Provider extends Component {
 
   getChildContext() {
     return {
+      i18n,
       store: this.store,
     };
   }

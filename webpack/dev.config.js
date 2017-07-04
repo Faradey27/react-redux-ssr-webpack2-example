@@ -112,8 +112,8 @@ const webpackConfig = module.exports = {
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
-      'process.env.DLLS': '"enabled"'
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.WEBPACK_DLLS': JSON.stringify(process.env.WEBPACK_DLLS)
     }),
 
     new webpack.ProvidePlugin({

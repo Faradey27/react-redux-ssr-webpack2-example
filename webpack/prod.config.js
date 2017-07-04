@@ -145,7 +145,8 @@ module.exports = {
     }),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.WEBPACK_DLLS': JSON.stringify(process.env.WEBPACK_DLLS)
     }),
 
     new webpack.ProvidePlugin({

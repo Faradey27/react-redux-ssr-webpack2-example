@@ -99,7 +99,7 @@ export default class Html extends Component {
             charSet="UTF-8"
             dangerouslySetInnerHTML={{ __html: `window.__data=${serialize(store.getState())};` }}
           />}
-          {process.env.DDLS === 'enabled' && <script
+          {process.env.WEBPACK_DLLS && <script
             charSet="UTF-8"
             key="dlls__vendor"
             src="/dist/dlls/dll__vendor.js"
