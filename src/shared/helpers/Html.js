@@ -74,23 +74,13 @@ export default class Html extends Component {
             content="#3677dd"
             name="theme-color"
           />
-          {/* styles (will be present only in production with webpack extract text plugin) */}
-          {assets.styles && Object.keys(assets.styles).map((style) => (
-            <link
-              charSet="UTF-8"
-              href={assets.styles[style]}
-              key={style}
-              media="screen, projection"
-              rel="stylesheet"
-              type="text/css"
-            />
-          ))}
 
           {/* (will be present only in development mode) */}
           {assets.styles && Object.keys(assets.styles).length === 0
             ? <style dangerouslySetInnerHTML={{ __html: '#content{display:none}' }} /> : null}
         </head>
         <body>
+          <noscript>{'Please enable javascript in your browser settings'}</noscript>
           <div
             dangerouslySetInnerHTML={{ __html: content }}
             id="content"
@@ -114,6 +104,17 @@ export default class Html extends Component {
             dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }}
           /> : null}
         </body>
+        {/* styles (will be present only in production with webpack extract text plugin) */}
+        {assets.styles && Object.keys(assets.styles).map((style) => (
+          <link
+            charSet="UTF-8"
+            href={assets.styles[style]}
+            key={style}
+            media="screen, projection"
+            rel="stylesheet"
+            type="text/css"
+          />
+        ))}
       </html>
     );
   }
