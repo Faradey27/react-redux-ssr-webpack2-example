@@ -49,6 +49,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
+        "HTTPS_PORT": 3009,
         "WEBPACK_DLLS": 1
       }
     },

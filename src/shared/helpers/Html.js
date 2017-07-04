@@ -33,6 +33,7 @@ export default class Html extends Component {
       <html lang="en-US">
         <head>
           {head.base.toComponent()}
+          <title>{'React redux ssr webpack2 example'}</title>
           {head.title.toComponent()}
           {head.meta.toComponent()}
           {head.link.toComponent()}
@@ -84,6 +85,7 @@ export default class Html extends Component {
           <div
             dangerouslySetInnerHTML={{ __html: content }}
             id="content"
+            role="main"
           />
           {store && <script
             charSet="UTF-8"
