@@ -1,13 +1,16 @@
 import express from 'express';
+import http from 'http';
+import http2 from 'spdy';
+import fs from 'fs';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import VError from 'verror';
+import PrettyError from 'pretty-error';
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import favicon from 'serve-favicon';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import path from 'path';
-import VError from 'verror';
-import PrettyError from 'pretty-error';
-import http from 'http';
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
@@ -26,9 +29,16 @@ global.React = React;
 
 process.on('unhandledRejection', (error) => console.error(error));
 
+const httpsOptions = {
+  key: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.key')), // eslint-disable-line
+  cert: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.crt')), // eslint-disable-line
+  ca: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.csr')), // eslint-disable-line
+};
+
 const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
+const http2Server = http2.createServer(httpsOptions, app);
 
 const pathToStatic = path.join(__dirname, '../../', 'static');
 
@@ -146,6 +156,15 @@ if (config.port) {
       console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
     }
   });
+
+  http2Server.
+    listen(config.httpsPort, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.info('==> 💻  HTTP2 Open https://%s:%s in a browser to view the app.', config.host, config.httpsPort);
+      }
+    });
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified');
 }
