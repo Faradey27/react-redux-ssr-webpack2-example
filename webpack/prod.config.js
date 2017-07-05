@@ -17,7 +17,8 @@ module.exports = {
   entry: {
     main: [
       './src/client/client.js'
-    ]
+    ],
+    //core: ['react', 'react-dom', 'react-router', 'redux', 'reselect']
   },
   output: {
     path: assetsPath,
@@ -138,6 +139,10 @@ module.exports = {
     }),
 
     new CleanPlugin([assetsPath], { root: projectRootPath }),
+    /*new webpack.optimize.CommonsChunkPlugin({
+      names: ['core'],
+      filename: '[name]-[chunkhash].js'
+    }),*/
 
     new ExtractTextPlugin({
       filename: '[name]-[chunkhash].css',

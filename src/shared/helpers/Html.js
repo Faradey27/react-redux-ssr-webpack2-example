@@ -96,15 +96,18 @@ export default class Html extends Component {
             key="dlls__vendor"
             src="/dist/dlls/dll__vendor.js"
           />}
-          {assets.javascript && <script
-            charSet="UTF-8"
-            src={assets.javascript.main}
-          />}
-
           {/* (will be present only in development mode) */}
           {assets.styles && Object.keys(assets.styles).length === 0 ? <script
             dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }}
           /> : null}
+          {assets.javascript && <script
+            charSet="UTF-8"
+            src={assets.javascript.core}
+          />}
+          {assets.javascript && <script
+            charSet="UTF-8"
+            src={assets.javascript.main}
+          />}
         </body>
         {/* styles (will be present only in production with webpack extract text plugin) */}
         {assets.styles && Object.keys(assets.styles).map((style) => (
