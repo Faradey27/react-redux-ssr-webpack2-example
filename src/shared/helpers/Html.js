@@ -104,6 +104,7 @@ export default class Html extends Component {
             charSet="UTF-8"
             src={assets.javascript.core}
           />}
+
           {assets.javascript && <script
             charSet="UTF-8"
             src={assets.javascript.main}

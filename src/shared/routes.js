@@ -4,7 +4,10 @@ import App from './../client/containers/App';
 import Home from './../client/pages/Home';
 
 // eslint-disable-next-line import/no-dynamic-require
-if (typeof System.import === 'undefined') System.import = (module) => Promise.resolve(require(module));
+if (typeof System === 'undefined') {
+  global.System = {};
+  System.import = (module) => Promise.resolve(require(module));
+}
 
 export default () => (
   <Route
