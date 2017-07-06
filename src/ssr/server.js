@@ -25,6 +25,8 @@ import getRoutes from './../shared/routes';
 
 import createStore from './../shared/redux/create';
 
+import http2Push from './middlewares/http2Push';
+
 global.React = React;
 
 process.on('unhandledRejection', (error) => console.error(error));
@@ -53,13 +55,8 @@ app.use('/dist/service-worker.js', (req, res, next) => {
   return next();
 });
 
+app.use(http2Push(pathToStatic));
 app.use(express.static(pathToStatic));
-
-app.use((req, res, next) => {
-  res.setHeader('X-Forwarded-For', req.ip);
-
-  return next();
-});
 
 app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}]));
 

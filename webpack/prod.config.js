@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const projectRootPath = path.resolve(__dirname, '../');
 const assetsPath = path.resolve(projectRootPath, './static/dist');
@@ -194,5 +195,5 @@ module.exports = {
         }
       }]
     })
-  ]
+  ].concat(process.env.ANALYSIS ? [new BundleAnalyzerPlugin()] : [])
 };
