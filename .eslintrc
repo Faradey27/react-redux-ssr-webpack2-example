@@ -9,6 +9,7 @@
   "rules": {},
   "parser": "babel-eslint",
   "globals": {
-    "webpackIsomorphicTools": true
+    "webpackIsomorphicTools": true,
+    "expect": true
   }
 }

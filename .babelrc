@@ -13,6 +13,18 @@
     "production": {
       "presets": ["react-optimize"]
     },
+    "test": {
+      "plugins": [
+        "react-require",
+        [
+          "css-modules-transform",
+          {
+            "preprocessCss": "./test/processSass.js",
+            "extensions": [".css", ".scss"]
+          }
+        ]
+      ]
+    },
     "development": {
       "plugins": [
         "transform-react-jsx-source"
