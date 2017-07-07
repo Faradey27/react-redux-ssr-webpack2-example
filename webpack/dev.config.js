@@ -50,6 +50,10 @@ const webpackConfig = module.exports = {
         loader: 'happypack/loader?id=json',
         include: [path.resolve(__dirname, '../src')]
       }, {
+        test: /\.css$/,
+        loader: 'happypack/loader?id=css',
+        include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules')]
+      },{
         test: /\.less$/,
         loader: 'happypack/loader?id=less',
         include: [path.resolve(__dirname, '../src')]
@@ -131,6 +135,24 @@ const webpackConfig = module.exports = {
       }, {
         loader: 'eslint-loader',
         options: { emitError: true }
+      }
+    ]),
+    helpers.createHappyPlugin('css', [
+      {
+        loader: 'style-loader',
+        options: { sourceMap: true }
+      }, {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+          importLoaders: 2,
+          sourceMap: true
+        }
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true
+        }
       }
     ]),
     helpers.createHappyPlugin('less', [

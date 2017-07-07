@@ -8,6 +8,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-connect';
 import { AppContainer as HotEnabler } from 'react-hot-loader';
 import { useScroll } from 'react-router-scroll';
+
+import 'normalize.css';
+
 import Provider from './../shared/components/Provider';
 import createStore from './../shared/redux/create';
 import getRoutes from './../shared/routes';

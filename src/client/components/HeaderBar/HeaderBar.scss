@@ -1,0 +1,13 @@
+@import "../../theme/variables.scss";
+
+$HEADER_BAR_HEIGHT: 65px;
+$HEADER_BAR_SHADOW: $default-box-shadow;
+$HEADER_BORDER_COLOR: $default-border-color;
+
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $HEADER_BORDER_COLOR;
+  box-shadow: $HEADER_BAR_SHADOW;
+  height: $HEADER_BAR_HEIGHT;
+}

@@ -95,6 +95,7 @@
     "fs": "^0.0.1-security",
     "http-proxy": "^1.16.2",
     "jed": "^1.1.1",
+    "normalize.css": "^7.0.0",
     "po2json": "^0.4.5",
     "pretty-error": "^2.0.2",
     "prop-types": "^15.5.8",

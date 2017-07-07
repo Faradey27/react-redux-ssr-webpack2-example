@@ -2,8 +2,9 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IndexLink } from 'react-router';
 import { asyncConnect } from 'redux-connect';
-
 import { loadWidgets } from './../../../shared/redux/modules/widgets/actions';
+
+import HeaderBar from './../../components/HeaderBar';
 
 @asyncConnect([{
   promise: ({ store }) => store.dispatch(loadWidgets()),
@@ -19,6 +20,7 @@ export default class App extends Component {
 
     return (
       <div className={s.home}>
+        <HeaderBar />
         {l('Home page')}
         <IndexLink to="/about">{l('About')}</IndexLink>
       </div>

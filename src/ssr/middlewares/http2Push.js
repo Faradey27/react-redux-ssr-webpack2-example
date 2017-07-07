@@ -2,41 +2,72 @@ import fs from 'fs';
 import path from 'path';
 import zlib from 'zlib';
 
-const http2Push = (pathToStatic) => (req, res, next) => {
-  if (req.isSpdy) {
-    const headers = {
-      'content-type': 'application/javascript',
-      'accept-encoding': 'gzip',
-      'Content-Encoding': 'gzip',
-    };
-    const options = {
-      status: 200,
-      method: 'GET',
-      request: {
-        accept: '*/*',
-      },
-      response: {
-        ...headers,
-      },
-    };
-    const assets = webpackIsomorphicTools.assets();
-
-    const coreStream = res.push(assets.javascript.core, options);
-    const mainStream = res.push(assets.javascript.main, options);
-    const mainCssStream = res.push(assets.styles.main, options);
-
-    const coreJsFile = fs.readFileSync(path.join(pathToStatic, assets.javascript.core)); // eslint-disable-line
-    const mainJsFile = fs.readFileSync(path.join(pathToStatic, assets.javascript.main)); // eslint-disable-line
-    const mainCssFile = fs.readFileSync(path.join(pathToStatic, assets.styles.main)); // eslint-disable-line
-
-    coreStream.end(zlib.gzipSync(coreJsFile));// eslint-disable-line
-    mainStream.end(zlib.gzipSync(mainJsFile));// eslint-disable-line
-    mainCssStream.end(zlib.gzipSync(mainCssFile));// eslint-disable-line
+const prepareAssets = (pathToStatic) => {
+  if (process.env.NODE_ENV !== 'production') {
+    return {};
   }
 
-  res.status(200);
+  const assets = webpackIsomorphicTools.assets();
 
-  next();
+  return {
+    js: Object.keys(assets.javascript).map((name) => {
+      const file = fs.readFileSync(path.join(pathToStatic, assets.javascript[name])); // eslint-disable-line
+
+      return {
+        name,
+        path: assets.javascript[name],
+        dataToResponse: zlib.gzipSync(file), // eslint-disable-line
+      };
+    }),
+    css: Object.keys(assets.styles).map((name) => {
+      const file = fs.readFileSync(path.join(pathToStatic, assets.styles[name])); // eslint-disable-line
+
+      return {
+        name,
+        path: assets.styles[name],
+        dataToResponse: zlib.gzipSync(file), // eslint-disable-line
+      };
+    }),
+  };
+};
+
+const http2Push = (pathToStatic) => {
+  const assets = prepareAssets(pathToStatic);
+
+  return (req, res, next) => {
+    if (req.isSpdy && res.push && process.env.NODE_ENV === 'production') {
+      const headers = {
+        'content-type': 'application/javascript',
+        'accept-encoding': 'gzip',
+        'Content-Encoding': 'gzip',
+      };
+      const options = {
+        status: 200,
+        method: 'GET',
+        request: {
+          accept: '*/*',
+        },
+        response: {
+          ...headers,
+        },
+      };
+
+      assets.js.forEach((asset) => {
+        res.
+          push(asset.path, options).
+          end(asset.dataToResponse);
+      });
+      assets.css.forEach((asset) => {
+        res.
+          push(asset.path, options).
+          end(asset.dataToResponse);
+      });
+    }
+
+    res.status(200);
+
+    next();
+  };
 };
 
 export default http2Push;
