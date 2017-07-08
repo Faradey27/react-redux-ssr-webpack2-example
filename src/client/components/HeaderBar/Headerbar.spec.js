@@ -13,8 +13,4 @@ describe('Header', () => {
   it('should render correctly', () => {
     expect(driver.get.isOk()).toBeTruthy();
   });
-
-  it('should render the correct className', () => {
-    expect(driver.has.headerBarClassNameFromStyles()).toBeTruthy();
-  });
 });

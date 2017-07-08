@@ -14,11 +14,9 @@ export default class HeaderBarDriver {
   };
 
   has = {
-    headerBarClassNameFromStyles: () => this.component.hasClass(styles.headerBar),
   }
 
   get = {
     isOk: () => Boolean(typeof this.component === 'object' && Object.keys(this.component).length > 0),
-    component: () => this.component,
   }
 }
