@@ -7,19 +7,19 @@ export default function isOnline(path = '/favicon.ico') {
   const randomHash = Math.floor((1 + Math.random()) * 0x10000); // eslint-disable-line
   const xhr = new (window.ActiveXObject || XMLHttpRequest)('Microsoft.XMLHTTP');
 
-  xhr.open('HEAD', `//${window.location.host}${path}?rand=${randomHash}`, true);
+  const { host, protocol } = window.location;
+
+  xhr.open('HEAD', `${protocol}//${host}${path}`, true);
 
   return new Promise((resolve) => {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === REQUEST_FINISHED_STATUS) {
         if (xhr.status >= OK_STATUS && (xhr.status < CHOICE_STATUS || xhr.status === NOT_MODIFIED_STATUS)) {
-          return resolve(true);
+          resolve(true);
         }
 
-        return resolve(false);
+        resolve(false);
       }
-
-      return false;
     };
     xhr.send(null);
   });
