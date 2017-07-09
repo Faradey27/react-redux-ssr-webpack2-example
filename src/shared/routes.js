@@ -16,6 +16,10 @@ export default () => (
   >
     <IndexRoute component={Home} />
     <Route
+      component={Home}
+      path="/home"
+    />
+    <Route
       getComponent={() => System.import('./../client/pages/About')}
       path="/about"
     />

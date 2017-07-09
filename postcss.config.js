@@ -4,6 +4,6 @@ module.exports = {
     'postcss-url',
     'postcss-cssnext',
     'postcss-browser-reporter',
-    'postcss-reporter'
-  ]
+    'postcss-reporter',
+  ],
 };

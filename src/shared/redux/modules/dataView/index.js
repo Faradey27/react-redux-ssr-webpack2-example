@@ -52,6 +52,9 @@ const updateLoadingViewId = (state, action) => {
 };
 
 export default (state = {}, action) => {
+  if (action.type.indexOf('router') === -1 && action.type.indexOf('redux') === -1) {
+    console.log(action.type);
+  }
   if (!action.meta) {
     return state;
   }

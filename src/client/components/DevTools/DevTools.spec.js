@@ -1,13 +1,13 @@
 /* eslint-disable fp/no-mutation */
 /* eslint-disable fp/no-let */
 
-import HeaderBarDriver from './HeaderBar.driver';
+import DevToolsDriver from './DevTools.driver';
 
-describe('HeaderBar', () => {
+describe('DevTools', () => {
   let driver = null;
 
   beforeEach(() => {
-    driver = new HeaderBarDriver();
+    driver = new DevToolsDriver();
   });
 
   it('should render correctly', () => {

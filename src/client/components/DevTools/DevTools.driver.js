@@ -1,11 +1,11 @@
 import { mount } from 'enzyme';
-import HeaderBar from './index';
+import DevTools from './index';
 
 export default class HeaderBarDriver {
   when = {
     created: (props) => {
       this.component = mount(
-        <HeaderBar {...props} />,
+        <DevTools {...props} />,
       );
 
       return this;

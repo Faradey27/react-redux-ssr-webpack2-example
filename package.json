@@ -171,6 +171,17 @@
     "webpack-isomorphic-tools": "^3.0.2"
   },
   "jest": {
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom" : ["src/**/*.js"],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 70,
+        "lines": 100,
+        "statements": 100
+      }
+    },
     "moduleNameMapper": {
       "^.*[.](gif|ttf|eot|svg|png|jpg)$": "<rootDir>/test/fileMock.js"
     }

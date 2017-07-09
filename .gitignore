@@ -13,3 +13,4 @@ api/**/*.nedb
 .history/
 .DS_Store
 .happypack
+coverage/

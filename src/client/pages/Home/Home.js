@@ -21,7 +21,7 @@ export default class App extends Component {
     return (
       <div className={s.home}>
         <HeaderBar />
-        {l('Home page')}
+        <span>{l('Home page')}</span>
         <IndexLink to="/about">{l('About')}</IndexLink>
       </div>
     );
