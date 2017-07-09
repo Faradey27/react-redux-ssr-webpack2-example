@@ -165,6 +165,7 @@
     "sass-loader": "^6.0.1",
     "sinon": "^2.3.6",
     "style-loader": "^0.17.0",
+    "superagent-mock": "^3.4.0",
     "sw-precache-webpack-plugin": "^0.11.3",
     "url-loader": "^0.5.7",
     "webpack": "^3.1.0",
@@ -183,8 +184,8 @@
       "global": {
         "branches": 50,
         "functions": 70,
-        "lines": 100,
-        "statements": 100
+        "lines": 90,
+        "statements": 90
       }
     },
     "moduleNameMapper": {
