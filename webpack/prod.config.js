@@ -182,6 +182,8 @@ module.exports = {
       React: 'react'
     }),
 
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
     new webpack.optimize.UglifyJsPlugin({

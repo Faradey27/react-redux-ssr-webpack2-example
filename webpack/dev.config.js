@@ -134,7 +134,6 @@ const webpackConfig = module.exports = {
         options: JSON.parse(babelrc)
       }, {
         loader: 'eslint-loader',
-        options: { emitError: true }
       }
     ]),
     helpers.createHappyPlugin('css', [
