@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
-import Helmet from 'react-helmet';
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -27,18 +26,11 @@ export default class Html extends Component {
   render() {
     const { assets, component, store } = this.props;
     const content = component ? ReactDOM.renderToString(component) : '';
-    const head = Helmet.renderStatic();
 
     return (
       <html lang="en-US">
         <head>
-          {head.base.toComponent()}
           <title>{'React redux ssr webpack2 example'}</title>
-          {head.title.toComponent()}
-          {head.meta.toComponent()}
-          {head.link.toComponent()}
-          {head.script.toComponent()}
-
           <link
             href="/favicon.ico"
             rel="shortcut icon"

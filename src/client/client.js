@@ -21,7 +21,7 @@ import isOnline from './utils/isOnline';
 const api = new Api();
 const dest = document.getElementById('content');
 
-Promise.all([window.__data ? true : isOnline()]).
+export const init = () => Promise.all([window.__data ? true : isOnline()]).
   then(([online]) => {
     const data = !online ? { ...window.__data, online } : { ...window.__data, online };
     const store = createStore(browserHistory, { api }, data);
@@ -29,7 +29,6 @@ Promise.all([window.__data ? true : isOnline()]).
 
     const renderRouter = (props) => (
       <ReduxAsyncConnect
-        filter={(item) => !item.deferred} // eslint-disable-line
         helpers={{ api }}
         render={applyRouterMiddleware(useScroll())}
         {...props}
@@ -68,44 +67,15 @@ Promise.all([window.__data ? true : isOnline()]).
       });
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      window.React = React; // enable debugger
+    const serverSideCheck = require('./services/dev/ssrCheck.dev');
+    const devTools = require('./services/dev/devtools.dev');
+    const serviceWorker = require('./services/prod/serviceWorker');
 
-      if (!dest || !dest.firstChild || !dest.firstChild.attributes ||
-        !dest.firstChild.attributes['data-react-checksum']) {
-        console.error('Server-side React render was discarded.' +
-          'Make sure that your initial render does not contain any client-side code.');
-      }
-    }
-
-    if (process.env.NODE_ENV !== 'production' && !window.devToolsExtension) {
-      const devToolsDest = document.createElement('div');
-
-      window.document.body.insertBefore(devToolsDest, null);
-      const DevTools = require('./components/DevTools/DevTools');
-
-      ReactDOM.render(
-        <Provider
-          key="provider"
-          store={store}
-        >
-          <DevTools />
-        </Provider>,
-        devToolsDest
-      );
-    }
-
-    if (online && process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/dist/service-worker.js', { scope: '/' }).
-        then(() => {
-          console.info('Service worker registered!');
-        }).
-        catch((error) => {
-          console.info('Error registering service worker: ', error);
-        });
-
-      navigator.serviceWorker.ready.then((/* registration */) => {
-        console.info('Service Worker Ready');
-      });
-    }
+    serverSideCheck(dest, React);
+    devTools(ReactDOM.render, store);
+    serviceWorker(online);
   });
+
+const initedApp = init();
+
+export default initedApp;

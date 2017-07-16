@@ -166,6 +166,7 @@
     "sinon": "^2.3.6",
     "style-loader": "^0.17.0",
     "superagent-mock": "^3.4.0",
+    "supertest": "^3.0.0",
     "sw-precache-webpack-plugin": "^0.11.3",
     "url-loader": "^0.5.7",
     "webpack": "^3.1.0",
@@ -177,15 +178,17 @@
   "jest": {
     "coverageDirectory": "coverage",
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.js",
+      "!src/ssr/services/bootstrap.js",
+      "!src/ssr/middlewares/http2Push.js"
     ],
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
         "branches": 50,
         "functions": 70,
-        "lines": 90,
-        "statements": 90
+        "lines": 75,
+        "statements": 75
       }
     },
     "moduleNameMapper": {

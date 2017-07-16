@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import { IndexRoute, Route } from 'react-router';
+import { IndexRoute, Route, Redirect } from 'react-router';
 import App from './../shared/components/App';
 import Home from './../client/pages/Home';
 
@@ -27,6 +27,10 @@ export default () => (
       getComponent={() => System.import('./../client/pages/NotFound')}
       path="*"
       status={404}
+    />
+    <Redirect
+      from="/start"
+      to="/"
     />
   </Route>
 );

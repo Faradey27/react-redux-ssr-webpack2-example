@@ -19,10 +19,6 @@ class I18n {
   }
 
   l = (text) => this.jed.gettext(text);
-
-  ngettext = (singular, plural, amount) => this.jed.ngettext(singular, plural, amount);
-
-  getLocale = () => this.locale.toLowerCase();
 }
 
 export default (

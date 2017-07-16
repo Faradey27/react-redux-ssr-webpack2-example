@@ -26,23 +26,25 @@ import getRoutes from './../shared/routes';
 import createStore from './../shared/redux/create';
 
 import http2Push from './middlewares/http2Push';
+import { start } from './services/bootstrap';
 
 global.React = React;
 
 process.on('unhandledRejection', (error) => console.error(error));
 
+const pathToStatic = path.join(__dirname, '../../', 'static');
+const pathToServerFolder = path.join(__dirname);
+
 const httpsOptions = {
-  key: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.key')), // eslint-disable-line
-  cert: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.crt')), // eslint-disable-line
-  ca: fs.readFileSync(path.join(__dirname, '/httpsConfig/server.csr')), // eslint-disable-line
+  key: fs.readFileSync(path.join(pathToServerFolder, '/httpsConfig/server.key')), // eslint-disable-line
+  cert: fs.readFileSync(path.join(pathToServerFolder, '/httpsConfig/server.crt')), // eslint-disable-line
+  ca: fs.readFileSync(path.join(pathToServerFolder, '/httpsConfig/server.csr')), // eslint-disable-line
 };
 
 const pretty = new PrettyError();
 const app = express();
 const server = new http.Server(app);
 const http2Server = http2.createServer(httpsOptions, app);
-
-const pathToStatic = path.join(__dirname, '../../', 'static');
 
 app.use(cookieParser());
 app.use(compression());
@@ -58,7 +60,7 @@ app.use('/dist/service-worker.js', (req, res, next) => {
 app.use(http2Push(pathToStatic));
 app.use(express.static(pathToStatic));
 
-app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}]));
+app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}])); // TODO remove this like when real appear will appear
 
 app.use((req, res) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -145,23 +147,6 @@ app.use((req, res) => {
   return true;
 });
 
-if (config.port) {
-  server.listen(config.port, (err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
-    }
-  });
+start(config, server, http2Server);
 
-  http2Server.
-    listen(config.httpsPort, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.info('==> 💻  HTTP2 Open https://%s:%s in a browser to view the app.', config.host, config.httpsPort);
-      }
-    });
-} else {
-  console.error('==>     ERROR: No PORT environment variable has been specified');
-}
+export default server;
