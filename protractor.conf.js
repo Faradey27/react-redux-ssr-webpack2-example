@@ -4,6 +4,7 @@ exports.config = {
     browserName: 'chrome',
   },
   SELENIUM_PROMISE_MANAGER: false,
+  baseUrl: 'http://localhost:8080',
   specs: ['test/**/*.e2e.js'],
   onPrepare() {
     require('babel-register');
