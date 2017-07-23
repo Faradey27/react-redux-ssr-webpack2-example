@@ -30,6 +30,10 @@ module.exports = (wallaby) => ({
     'static/**',
   ],
 
+  hints: {
+    ignoreCoverage: /istanbul ignore next/,
+  },
+
   tests: [
     { pattern: 'node_modules/*', ignore: true, instrument: false },
     'src/**/*.spec.js*',

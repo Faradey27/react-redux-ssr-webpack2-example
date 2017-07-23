@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 import Provider from './../../../shared/components/Provider';
 
 export default (render, store) => {

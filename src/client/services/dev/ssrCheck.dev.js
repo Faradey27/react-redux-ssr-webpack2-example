@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 export default (dest, React) => {
   if (process.env.NODE_ENV !== 'production') {
     window.React = React; // enable debugger

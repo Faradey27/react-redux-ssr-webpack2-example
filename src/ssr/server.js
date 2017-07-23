@@ -29,7 +29,7 @@ import http2Push from './middlewares/http2Push';
 import { start } from './services/bootstrap';
 
 global.React = React;
-
+/* istanbul ignore next */
 process.on('unhandledRejection', (error) => console.error(error));
 
 const pathToStatic = path.join(__dirname, '../../', 'static');
@@ -60,6 +60,7 @@ app.use('/dist/service-worker.js', (req, res, next) => {
 app.use(http2Push(pathToStatic));
 app.use(express.static(pathToStatic));
 
+/* istanbul ignore next */
 app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}])); // TODO remove this like when real appear will appear
 
 app.use((req, res) => {
@@ -94,14 +95,20 @@ app.use((req, res) => {
     routes: getRoutes(store),
     location: req.originalUrl,
   }, (error, redirectLocation, renderProps) => {
+    /* istanbul ignore next */
     if (redirectLocation) {
       res.redirect(redirectLocation.pathname + redirectLocation.search);
-    } else if (error) {
+    }
+    /* istanbul ignore next */
+    if (error && !redirectLocation) {
       console.error('ROUTER ERROR:', pretty.render(error));
       res.status(500);
       hydrateOnClient();
-    } else if (renderProps) {
+    }
+
+    if (renderProps && !error && !redirectLocation) {
       const redirect = (to) => {
+        /* istanbul ignore next */
         throw new VError({ name: 'RedirectError', info: { to } });
       };
 
@@ -129,7 +136,7 @@ app.use((req, res) => {
 
         res.send(`<!doctype html>
           ${stringToReturn}`);
-      }).catch((mountError) => {
+      }).catch(/* istanbul ignore next */ (mountError) => {
         if (mountError.name === 'RedirectError') {
           return res.redirect(VError.info(mountError).to);
         }
@@ -140,6 +147,7 @@ app.use((req, res) => {
         return true;
       });
     } else {
+      /* istanbul ignore next */
       res.status(404).send('Not found');
     }
   });

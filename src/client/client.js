@@ -21,6 +21,17 @@ import isOnline from './utils/isOnline';
 const api = new Api();
 const dest = document.getElementById('content');
 
+const hotModuleReplacmentSetup = (store, render) => {
+  /* istanbul ignore next */
+  if (module.hot) {
+    module.hot.accept('./../shared/routes', () => {
+      const nextRoutes = require('./../shared/routes')(store);
+
+      render(nextRoutes);
+    });
+  }
+};
+
 export const init = () => Promise.all([window.__data ? true : isOnline()]).
   then(([online]) => {
     const data = !online ? { ...window.__data, online } : { ...window.__data, online };
@@ -59,13 +70,7 @@ export const init = () => Promise.all([window.__data ? true : isOnline()]).
 
     render(getRoutes(store));
 
-    if (module.hot) {
-      module.hot.accept('./../shared/routes', () => {
-        const nextRoutes = require('./../shared/routes')(store);
-
-        render(nextRoutes);
-      });
-    }
+    hotModuleReplacmentSetup(store, render);
 
     const serverSideCheck = require('./services/dev/ssrCheck.dev');
     const devTools = require('./services/dev/devtools.dev');

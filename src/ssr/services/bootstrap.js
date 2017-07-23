@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 export const start = (config, server, http2Server) => {
   if (config.port) {
     server.listen(config.port, (err) => {
