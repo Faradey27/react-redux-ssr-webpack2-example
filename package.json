@@ -37,6 +37,9 @@
     "createLocaleFiles": "./lang/extract_lang.sh",
     "convertPOtoJson": "./lang/po2json.sh"
   },
+  "pre-commit": [
+    "test:unit"
+  ],
   "betterScripts": {
     "start-prod": {
       "command": "node ./bin/server.js",
