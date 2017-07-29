@@ -30,7 +30,7 @@ describe('Client', () => {
     client.then(() => {
       const html = global.document.getElementById('content').innerHTML;
 
-      expect(html).toEqual('<div data-reactroot=\"\"><div>Not Found</div></div>');
+      expect(html).toEqual('<div data-reactroot=""><div>Not Found</div></div>');
       done();
     });
   });
