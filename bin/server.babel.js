@@ -1,13 +1,4 @@
 const fs = require('fs');
+const babelrc = fs.readFileSync('.babelrc'); // eslint-disable-line
 
-const babelrc = fs.readFileSync('.babelrc');
-let config;
-
-try {
-  config = JSON.parse(babelrc);
-} catch (err) {
-  console.error('==>     ERROR: Error parsing your .babelrc.');
-  console.error(err);
-}
-
-require('babel-register')(config);
+require('babel-register')(JSON.parse(babelrc));
