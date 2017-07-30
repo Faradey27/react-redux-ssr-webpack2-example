@@ -19,7 +19,10 @@ export default class App extends Component {
     const s = require('./Home.scss');
 
     return (
-      <div className={s.home}>
+      <div
+        className={s.home}
+        data-testId="homePage"
+      >
         <HeaderBar />
         <span>{l('Home page')}</span>
         <IndexLink to="/about">{l('About')}</IndexLink>

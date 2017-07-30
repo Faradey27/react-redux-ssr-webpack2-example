@@ -27,7 +27,7 @@
     "start-prod": "npm run build && concurrently --kill-others \"better-npm-run start-prod\"",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest",
-    "test:e2e": "npm run build && webdriver-manager update && concurrently -k -s \"better-npm-run start-prod\" \"protractor\"",
+    "test:e2e": "node webpack/scripts/runE2E.js",
     "analysis": "cross-env ANALYSIS=1 npm run build",
     "build": "npm run lint && better-npm-run build",
     "postinstall": "concurrently \"npm run build\" \"npm run build\" \"webpack --colors --display-error-details --config webpack/vendor.config.js\"",
@@ -38,6 +38,7 @@
     "convertPOtoJson": "./lang/po2json.sh"
   },
   "pre-commit": [
+    "lint",
     "test:unit"
   ],
   "betterScripts": {
@@ -163,6 +164,7 @@
     "pre-commit": "^1.2.2",
     "protractor": "^5.1.2",
     "react-addons-test-utils": "^15.6.0",
+    "react-dev-utils": "^3.0.2",
     "react-hot-loader": "^3.0.0-beta.3",
     "react-test-renderer": "^15.6.1",
     "redux-devtools": "^3.3.2",

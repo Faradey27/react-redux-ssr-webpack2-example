@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import zlib from 'zlib';
 
+/* istanbul ignore next */
 const prepareAssets = (pathToStatic) => {
   if (process.env.NODE_ENV !== 'production') {
     return {};
