@@ -10,5 +10,6 @@ spawn.sync('npm', ['run', 'build'], { stdio: 'inherit' });
 spawn.sync(WEBDRIVER_MANAGER, ['update'], { stdio: 'inherit' });
 
 const productionServer = spawn(BETTER_NPM_RUN, ['start-prod'], { stdio: 'inherit' });
-spawn.sync(PROTRACTOR, [], { stdio: 'inherit' });
-exec('kill -kill `lsof -t -i tcp:8080`');
+const e2eTests = spawn.sync(PROTRACTOR, [], { stdio: 'inherit' });
+//exec('kill -kill `lsof -t -i tcp:8080`');
+process.exit(e2eTests.status);
