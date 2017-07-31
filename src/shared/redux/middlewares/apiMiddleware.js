@@ -18,10 +18,7 @@ export default ({ api }) => ({ dispatch, getState }) => (next) => (action) => {
   actionPromise.then(
     (payload) => next({ ...rest, payload, type: SUCCESS }),
     (error) => next({ ...rest, error, type: FAILURE })
-  ).catch((error) => {
-    console.error('MIDDLEWARE ERROR:', error);
-    next({ ...rest, error, type: FAILURE });
-  });
+  );
 
   return actionPromise;
 };

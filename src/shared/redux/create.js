@@ -3,6 +3,7 @@ import { routerMiddleware } from 'react-router-redux';
 import apiMiddleware from './middlewares/apiMiddleware';
 import createReducers from './reducer';
 
+/* istanbul ignore next */
 export const inject = (store, name, asyncReducer) => {
   if (store.asyncReducers[name]) return;
   store.asyncReducers[name] = asyncReducer; // eslint-disable-line
@@ -41,6 +42,7 @@ export default function createStore(history, helpers, data) {
   store.asyncReducers = {}; // eslint-disable-line
   store.inject = inject.bind(null, store); // eslint-disable-line
 
+  /* istanbul ignore next */
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./reducer', () => {
       const reducer = require('./reducer');
