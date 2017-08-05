@@ -3,6 +3,8 @@
 $HEADER_BAR_HEIGHT: 65px;
 $HEADER_BAR_SHADOW: $default-box-shadow;
 $HEADER_BORDER_COLOR: $default-border-color;
+$HEADER_DEFAULT_OFFSET: 10px;
+$HEADER_LOGO_SIZE: 36px;
 
 .headerBar {
   display: flex;
@@ -10,4 +12,16 @@ $HEADER_BORDER_COLOR: $default-border-color;
   border-bottom: 1px solid $HEADER_BORDER_COLOR;
   box-shadow: $HEADER_BAR_SHADOW;
   height: $HEADER_BAR_HEIGHT;
+  padding: 0 $HEADER_DEFAULT_OFFSET;
+}
+
+.leftSide, .rightSide {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  width: $HEADER_LOGO_SIZE;
+  height: $HEADER_LOGO_SIZE;
+  margin-right: $HEADER_DEFAULT_OFFSET;
 }

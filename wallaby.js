@@ -15,6 +15,7 @@ module.exports = (wallaby) => ({
     { pattern: 'src/**/*.spec.js', ignore: true },
     'src/**/*.js*',
     'src/**/*.scss',
+    'src/**/*.png',
     'src/**/*.css',
     'src/**/*.less',
   ],
@@ -41,11 +42,32 @@ module.exports = (wallaby) => ({
   ],
 
   compilers: {
-    '**/*.js?(x)': wallaby.compilers.babel(),
+    '**/*.js': wallaby.compilers.babel(),
+  },
+
+  preprocessors: {
+    '**/*.png': (file, done) => {
+      done('');
+    },
+  },
+
+
+  setup: (target) => {
+    target.testFramework.configure({
+      moduleNameMapper: {
+        '^.+\\.(jpg|jpeg|png|gif|svg)$': './test/fileMock.js',
+      },
+    });
   },
 
   env: {
     type: 'node',
+  },
+
+  workers: {
+    initial: 1,
+    regular: 1,
+    recycle: true,
   },
 
   testFramework: 'jest',

@@ -1,2 +1,2 @@
 global.React = require('react');
-export default {};
+export default '';

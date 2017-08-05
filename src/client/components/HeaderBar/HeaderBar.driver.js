@@ -1,10 +1,10 @@
-import { mount } from 'enzyme';
 import HeaderBar from './index';
+import { mountWithContext } from './../../../../test/helpers/mount.js';
 
 export default class HeaderBarDriver {
   when = {
     created: (props) => {
-      this.component = mount(
+      this.component = mountWithContext(
         <HeaderBar {...props} />,
       );
 
