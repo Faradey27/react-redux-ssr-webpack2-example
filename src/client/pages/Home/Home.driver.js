@@ -13,7 +13,7 @@ export default class HomeDriver {
 
   get = {
     isOk: () => Boolean(typeof this.component === 'object' && Object.keys(this.component).length > 0),
-    text: () => this.component.find('span').text(),
+    text: () => this.component.find('[data-testId="page-text"]').text(),
     linkText: () => this.component.find('a').at(0).text(),
     linkUrl: () => this.component.find('a').at(0).prop('href'),
   }

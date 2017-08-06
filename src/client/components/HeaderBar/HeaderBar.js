@@ -1,6 +1,9 @@
 import React from 'react';
 import { object } from 'prop-types';
+import classNames from 'classnames';
+
 import Image from './../Image';
+import Button from './../Button';
 
 import styles from './HeaderBar.scss';
 
@@ -26,9 +29,18 @@ export default class HeaderBar extends React.Component {
           </div>
         </div>
         <div className={styles.rightSide}>
-          <div>{l('Register')}</div>
-          <div>{l('Login')}</div>
-          <div>{l('Do something')}</div>
+          <Button>{l('Register')}</Button>
+          <Button>{l('Login')}</Button>
+          <div className={styles.mainActionButton}>
+            <Button secondary>{l('Action')}</Button>
+          </div>
+        </div>
+        <div className={classNames(styles.rightSide, styles.mobile)}>
+          <Button icon>
+            <Image
+              src={require('bytesize-icons/dist/icons/menu.svg')}
+            />
+          </Button>
         </div>
       </div>
     );

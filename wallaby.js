@@ -16,6 +16,8 @@ module.exports = (wallaby) => ({
     'src/**/*.js*',
     'src/**/*.scss',
     'src/**/*.png',
+    'src/**/*.svg',
+    'node_modules/bytesize-icons/dist/icons/*.svg',
     'src/**/*.css',
     'src/**/*.less',
   ],
@@ -47,6 +49,9 @@ module.exports = (wallaby) => ({
 
   preprocessors: {
     '**/*.png': (file, done) => {
+      done('');
+    },
+    '**/*.svg': (file, done) => {
       done('');
     },
   },

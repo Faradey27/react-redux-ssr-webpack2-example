@@ -61,7 +61,7 @@ const http2Push = (pathToStatic) => {
       });
       assets.css.forEach((asset) => {
         res.
-          push(asset.path, options).
+          push(asset.path, { ...options, response: { ...headers, 'content-type': 'text/css' } }).
           end(asset.dataToResponse);
       });
     }

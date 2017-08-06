@@ -10,6 +10,7 @@ import { AppContainer as HotEnabler } from 'react-hot-loader';
 import { useScroll } from 'react-router-scroll';
 
 import 'reset-css/reset.css';
+import './styles.scss';
 
 import Provider from './../shared/components/Provider';
 import createStore from './../shared/redux/create';

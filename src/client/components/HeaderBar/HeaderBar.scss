@@ -1,4 +1,5 @@
 @import "../../theme/variables.scss";
+@import "../../theme/mixins.scss";
 
 $HEADER_BAR_HEIGHT: 65px;
 $HEADER_BAR_SHADOW: $default-box-shadow;
@@ -20,8 +21,29 @@ $HEADER_LOGO_SIZE: 36px;
   align-items: center;
 }
 
+.logo {
+  margin-right: $HEADER_DEFAULT_OFFSET
+}
+
 .logoImg {
   width: $HEADER_LOGO_SIZE;
   height: $HEADER_LOGO_SIZE;
-  margin-right: $HEADER_DEFAULT_OFFSET;
+}
+
+.mainActionButton {
+  margin-left: $HEADER_DEFAULT_OFFSET;
+}
+
+.mobile {
+  display: none;
+}
+
+@include mobile-only {
+  .mobile {
+    display: flex !important;
+  }
+
+  .rightSide:not(.mobile) {
+    display: none !important;
+  }
 }

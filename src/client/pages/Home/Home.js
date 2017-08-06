@@ -24,7 +24,7 @@ export default class App extends Component {
         data-testId="homePage"
       >
         <HeaderBar />
-        <span>{l('Home page')}</span>
+        <span data-testId="page-text">{l('Home page')}</span>
         <IndexLink to="/about">{l('About')}</IndexLink>
       </div>
     );

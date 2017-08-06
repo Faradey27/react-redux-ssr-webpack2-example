@@ -1,11 +1,11 @@
 import { mount } from 'enzyme';
-import DevTools from './index';
+import Button from './index';
 
-export default class DevToolsDriver {
+export default class ButtonDriver {
   when = {
     created: (props) => {
       this.component = mount(
-        <DevTools {...props} />,
+        <Button {...props} />,
       );
 
       return this;
