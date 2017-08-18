@@ -9,7 +9,6 @@ describe('HomePage functionality test', () => {
 
   it('should navigate and show home page', async () => {
     await driver.when.navigated();
-    await driver.is.ok();
     expect(await driver.is.ok()).toBeTruthy();
   });
 });

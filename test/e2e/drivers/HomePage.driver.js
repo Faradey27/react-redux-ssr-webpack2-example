@@ -2,11 +2,7 @@ import { browser, element, by } from 'protractor';
 
 class HomeDriver {
   when = {
-    navigated: (url = '/') => {
-      browser.get(url);
-
-      return this;
-    },
+    navigated: async (url = '/') => browser.get(url),
   };
   is = {
     ok: () => element(by.css('[data-testid=homePage]')).isDisplayed(),

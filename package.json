@@ -201,8 +201,8 @@
       "global": {
         "branches": 80,
         "functions": 90,
-        "lines": 95,
-        "statements": 95
+        "lines": 100,
+        "statements": 100
       }
     },
     "moduleNameMapper": {
