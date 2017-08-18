@@ -6,7 +6,7 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 const formatUrl = (path) => {
   const adjustedPath = path[0] !== '/' ? `/${path}` : path;
 
-  if (typeof window === 'undefined') {
+  if (process.env.IS_SERVER) {
     // here could be some another address, no-cors
     return `http://${config.host}:${config.port}/v1/api${adjustedPath}`;
   }
@@ -24,7 +24,7 @@ export default class Api {
           request.query(params);
         }
 
-        if (typeof window === 'undefined' && req.get('cookie')) {
+        if (process.env.IS_SERVER && req.get('cookie')) {
           request.set('cookie', req.get('cookie'));
         }
 

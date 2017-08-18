@@ -2,6 +2,7 @@
 /* eslint-disable fp/no-let */
 import request from 'superagent';
 import superagentMock from 'superagent-mock';
+import sinon from 'sinon';
 import Api from './Api';
 
 describe('isOnline', () => {
@@ -9,7 +10,7 @@ describe('isOnline', () => {
   let mock = null;
 
   beforeEach(() => {
-    api = new Api();
+    api = new Api({ get: () => '123', set: sinon.spy() });
   });
 
   afterEach(() => {
@@ -54,8 +55,6 @@ describe('isOnline', () => {
   });
 
   it('should send correct post request on server', () => {
-    global.window = {};
-
     let actualInput = '';
     let actualBody = '';
     let actualHeaders = '';
@@ -90,5 +89,44 @@ describe('isOnline', () => {
     expect(actualBody).toEqual({ name: 'data' });
     expect(actualHeaders.Authorization).toBe('Bearer somehash');
     expect(actualHeaders.some).toBe('random');
+  });
+
+  it('should send correct post request on server', () => {
+    process.env.IS_SERVER = 1;
+    let actualInput = '';
+    let actualBody = '';
+    let actualHeaders = '';
+
+    mock = superagentMock(request, [{
+      pattern: 'http://localhost:3000',
+      fixtures: (match, params, headers) => {
+        actualHeaders = headers;
+        actualBody = params;
+        actualInput = match.input;
+      },
+      post: (match, data) => ({ body: data }),
+    }]);
+    const mockedUrl = 'http://localhost:3000/api/someReq';
+
+    api.setJwtToken('somehash');
+    api.post(mockedUrl, {
+      params: {
+        param: '1',
+      },
+      data: {
+        name: 'data',
+      },
+      headers: {
+        some: 'random',
+      },
+      files: [{ key: 'file', value: 'file' }],
+      fields: [{ key: 'field', value: 'field' }],
+    });
+
+    expect(actualInput).toBe('http://localhost:undefined/v1/api/http://localhost:3000/api/someReq?param=1');
+    expect(actualBody).toEqual({ name: 'data' });
+    expect(actualHeaders.Authorization).toBe('Bearer somehash');
+    expect(actualHeaders.some).toBe('random');
+    process.env.IS_SERVER = 0;
   });
 });
