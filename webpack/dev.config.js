@@ -9,6 +9,7 @@ const assetsPath = path.resolve(__dirname, '../static/dist');
 const host = (process.env.HOST || 'localhost');
 const port = (+process.env.PORT + 1) || 3001;
 
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
@@ -17,7 +18,7 @@ const babelrc = fs.readFileSync('./.babelrc');
 const validDLLs = helpers.isValidDLLs('vendor', assetsPath);
 if (process.env.WEBPACK_DLLS === '1' && !validDLLs) {
   process.env.WEBPACK_DLLS = '0';
-  console.warn('webpack dlls disabled');
+  console.warn('Webpack DLLs disabled: NOT VALID dll file, try to run "npm run postinstall"',);
 }
 
 const webpackConfig = module.exports = {
@@ -95,6 +96,8 @@ const webpackConfig = module.exports = {
     ]
   },
   plugins: [
+    new ProgressBarPlugin(),
+
     new webpack.LoaderOptionsPlugin({
       test: /\.(less|scss)/,
       options: {

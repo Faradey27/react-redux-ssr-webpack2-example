@@ -6,6 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const projectRootPath = path.resolve(__dirname, '../');
 const assetsPath = path.resolve(projectRootPath, './static/dist');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
@@ -147,6 +148,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new ProgressBarPlugin(),
     new webpack.LoaderOptionsPlugin({
       test: /\.(less|scss)/,
       options: {
