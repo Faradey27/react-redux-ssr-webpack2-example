@@ -23,18 +23,17 @@
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "node webpack/scripts/startDev.js",
-    "start-prod": "npm run build && concurrently --kill-others \"better-npm-run start-prod\"",
-    "test": "npm run test:unit && npm run test:e2e",
-    "test:unit": "jest --coverage",
+    "start": "node ./build-scripts/bin start",
+    "start-prod": "node ./build-scripts/bin start:prod",
+    "test": "node ./build-scripts/bin test",
+    "test:unit": "node ./build-scripts/bin test:unit",
+    "test:e2e": "node ./build-scripts/bin test:e2e",
     "test:coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:e2e": "node webpack/scripts/runE2E.js",
     "analysis": "cross-env ANALYSIS=1 npm run build",
-    "build": "npm run lint && node webpack/scripts/build.js",
-    "postinstall": "webpack --colors --display-error-details --config webpack/vendor.config.js",
+    "build": "npm run lint && node build-scripts/scripts/build.js",
+    "postinstall": "webpack --colors --display-error-details --config build-scripts/vendor.config.js",
     "hard-rebuild": "rm -rf static/dist yarn.lock node_modules && yarn install && yarn build && yarn start",
     "lint": "eslint -c .eslintrc src",
-    "lighthouse-report": "LIGHTHOUSE_CHROMIUM_PATH=$(which google-chrome) lighthouse http://localhost:8080",
     "createLocaleFiles": "./lang/extract_lang.sh",
     "convertPOtoJson": "./lang/po2json.sh"
   },
@@ -42,17 +41,6 @@
     "lint",
     "test:unit"
   ],
-  "betterScripts": {
-    "start-prod": {
-      "command": "node ./bin/server.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "PORT": 8080,
-        "HTTPS_PORT": 8081
-      }
-    }
-  },
   "dependencies": {
     "async": "^2.1.4",
     "babel": "^6.23.0",
