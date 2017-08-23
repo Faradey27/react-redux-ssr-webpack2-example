@@ -30,12 +30,11 @@
     "test:e2e": "node ./build-scripts/bin test:e2e",
     "test:coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "analysis": "cross-env ANALYSIS=1 npm run build",
-    "build": "npm run lint && node build-scripts/scripts/build.js",
+    "build": "node build-scripts/scripts/build.js",
     "postinstall": "webpack --colors --display-error-details --config build-scripts/vendor.config.js",
-    "hard-rebuild": "rm -rf static/dist yarn.lock node_modules && yarn install && yarn build && yarn start",
-    "lint": "eslint -c .eslintrc src",
-    "createLocaleFiles": "./lang/extract_lang.sh",
-    "convertPOtoJson": "./lang/po2json.sh"
+    "lint": "node ./build-scripts/bin lint",
+    "locales:po": "node ./build-scripts/bin locales:po",
+    "locales:json": "node ./build-scripts/bin locales:json"
   },
   "pre-commit": [
     "lint",

@@ -101,18 +101,18 @@ export default class Html extends Component {
             charSet="UTF-8"
             src={assets.javascript.main}
           />}
+          {/* styles (will be present only in production with webpack extract text plugin) */}
+          {assets.styles && Object.keys(assets.styles).map((style) => (
+            <link
+              charSet="UTF-8"
+              href={assets.styles[style]}
+              key={style}
+              media="screen, projection"
+              rel="stylesheet"
+              type="text/css"
+            />
+          ))}
         </body>
-        {/* styles (will be present only in production with webpack extract text plugin) */}
-        {assets.styles && Object.keys(assets.styles).map((style) => (
-          <link
-            charSet="UTF-8"
-            href={assets.styles[style]}
-            key={style}
-            media="screen, projection"
-            rel="stylesheet"
-            type="text/css"
-          />
-        ))}
       </html>
     );
   }

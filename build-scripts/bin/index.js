@@ -73,6 +73,42 @@ switch (script) {
     handleError(result);
     break;
   }
+  case 'lint': {
+    const result = spawn.sync(
+      'node',
+      nodeArgs.
+        concat(require.resolve('../scripts/lint.js')).
+        concat(args.slice(scriptIndex + 1)),
+      { stdio: 'inherit' }
+    );
+
+    handleError(result);
+    break;
+  }
+  case 'locales:po': {
+    const result = spawn.sync(
+      'node',
+      nodeArgs.
+        concat(require.resolve('../scripts/localesPo.js')).
+        concat(args.slice(scriptIndex + 1)),
+      { stdio: 'inherit' }
+    );
+
+    handleError(result);
+    break;
+  }
+  case 'locales:json': {
+    const result = spawn.sync(
+      'node',
+      nodeArgs.
+        concat(require.resolve('../scripts/localesJson.js')).
+        concat(args.slice(scriptIndex + 1)),
+      { stdio: 'inherit' }
+    );
+
+    handleError(result);
+    break;
+  }
   case 'start:prod': {
     const result = spawn.sync(
       'node',

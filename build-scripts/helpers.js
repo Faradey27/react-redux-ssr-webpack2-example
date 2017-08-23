@@ -23,7 +23,7 @@ function createHappyPlugin(id, loaders) {
 }
 
 function installVendorDLL(config, dllName) {
-  var manifest = loadDLLManifest(path.join(projectRootPath, `webpack/dlls/${dllName}.json`));
+  var manifest = loadDLLManifest(path.join(projectRootPath, `build-scripts/dlls/${dllName}.json`));
 
   if (manifest) {
     console.info(`Webpack: will be using the ${dllName} DLL.`);
@@ -49,7 +49,7 @@ You have requested to use webpack DLLs (env var WEBPACK_DLLS=1) but a
 manifest could not be found. This likely means you have forgotten to
 build the DLLs.
 You can do that by running:
-    npm run build-dlls
+    npm run postinstall
 The request to use DLLs for this build will be ignored.`);
   }
 
@@ -59,10 +59,10 @@ The request to use DLLs for this build will be ignored.`);
 function isValidDLLs(dllNames, assetsPath) {
   for (var dllName of [].concat(dllNames)) {
     try {
-      var manifest = require(path.join(projectRootPath, `webpack/dlls/${dllName}.json`));
+      var manifest = require(path.join(projectRootPath, `build-scripts/dlls/${dllName}.json`));
       var dll = fs.readFileSync(path.join(assetsPath, `dlls/dll__${dllName}.js`)).toString('utf-8');
       if (dll.indexOf(manifest.name) === -1) {
-        console.warn(`Invalid dll: ${dllName}`);
+        console.warn(`Invalid dll: ${dllName}`, manifest);
         return false;
       }
     } catch (e) {

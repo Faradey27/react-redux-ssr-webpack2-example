@@ -1,6 +1,6 @@
-var path = require('path');
-var webpack = require('webpack');
-var projectRootPath = path.resolve(__dirname, '../');
+const path = require('path');
+const webpack = require('webpack');
+const projectRootPath = path.resolve(__dirname, '../');
 
 module.exports = {
   devtool: process.env.NODE_ENV === 'production' ? false : 'inline-source-map',
@@ -8,11 +8,11 @@ module.exports = {
   output: {
     path: path.join(projectRootPath, 'static/dist/dlls'),
     filename: 'dll__[name].js',
-    library: 'DLL_[name]_[hash]'
+    library: 'DLL_[name]_[hash]',
   },
 
   performance: {
-    hints: false
+    hints: false,
   },
 
   entry: {
@@ -62,8 +62,11 @@ module.exports = {
       'react-router-scroll',
       'redux',
       'redux-connect',
-      'serialize-javascript'
-    ]
+      'serialize-javascript',
+
+      'jed',
+      'superagent'
+    ],
   },
 
   plugins: [
@@ -72,8 +75,8 @@ module.exports = {
     }),
 
     new webpack.DllPlugin({
-      path: path.join(projectRootPath, 'webpack/dlls/[name].json'),
-      name: 'DLL_[name]_[hash]'
-    })
-  ]
+      path: path.join(projectRootPath, 'build-scripts/dlls/[name].json'),
+      name: 'DLL_[name]_[hash]',
+    }),
+  ],
 };

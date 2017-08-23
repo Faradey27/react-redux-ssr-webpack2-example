@@ -20,7 +20,7 @@ module.exports = {
     main: [
       './src/client/client.js'
     ],
-    core: ['react', 'react-dom', 'react-router', 'redux', 'reselect']
+    core: ['react', 'react-dom', 'redux', 'reselect', 'superagent', 'react-redux']
   },
   output: {
     path: assetsPath,
@@ -199,7 +199,7 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'webpack/pwa.js'
+      template: 'build-scripts/pwa.js'
     }),
 
     new SWPrecacheWebpackPlugin({

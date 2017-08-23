@@ -1,6 +1,6 @@
 import Jed from 'jed';
-import en from './../../../lang/locales/json/en.json';
-import ru from './../../../lang/locales/json/ru.json';
+import en from './../../../static/locales/json/en.json';
+import ru from './../../../static/locales/json/ru.json';
 
 const locales = {
   en, ru,
