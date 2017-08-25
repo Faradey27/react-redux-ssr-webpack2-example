@@ -10,10 +10,12 @@ describe('isOnline', () => {
   let mock = null;
 
   beforeEach(() => {
+    process.env.IS_SERVER = '';
     api = new Api({ get: () => '123', set: sinon.spy() });
   });
 
   afterEach(() => {
+    process.env.IS_SERVER = 1;
     mock.unset();
   });
 
@@ -127,6 +129,5 @@ describe('isOnline', () => {
     expect(actualBody).toEqual({ name: 'data' });
     expect(actualHeaders.Authorization).toBe('Bearer somehash');
     expect(actualHeaders.some).toBe('random');
-    process.env.IS_SERVER = 0;
   });
 });

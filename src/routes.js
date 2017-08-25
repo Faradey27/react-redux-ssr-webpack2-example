@@ -4,7 +4,7 @@ import App from './components/App';
 import Home from './pages/Home';
 
 // eslint-disable-next-line import/no-dynamic-require
-if (typeof System === 'undefined') {
+if (process.env.IS_SERVER) {
   global.System = {};
   System.import = (module) => Promise.resolve(require(module));
 }

@@ -1,6 +1,6 @@
 import reducer from './../index';
 
-describe('Check that redux store is created correctly', () => {
+describe('Check that redux store is created correctly and dataView module works', () => {
   it('should return state when no viewId', () => {
     expect(reducer({ empty: 1 }, { meta: [] })).toEqual({ empty: 1 });
   });

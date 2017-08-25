@@ -35,4 +35,16 @@ describe('isOnline', () => {
       done();
     });
   });
+
+  it('should resolved with false when wrong status', (done) => {
+    const { host, protocol } = window.location;
+    const mockedUrl = `${protocol}//${host}/favicon.ico`;
+
+    xhrMock.mock('HEAD', mockedUrl, (res) => res.progress());
+
+    isOnline().then((state) => {
+      expect(state).toBeFalsy();
+      done();
+    });
+  });
 });

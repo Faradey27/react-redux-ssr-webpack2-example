@@ -1,5 +1,6 @@
+import React from 'react'; // eslint-disable-line
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import Provider from './index';
 
 const NUMBER_OF_DEFAULT_ERRORS = 2; // from redux devtools
@@ -7,13 +8,14 @@ const NUMBER_OF_DEFAULT_ERRORS = 2; // from redux devtools
 export default class AboutDriver {
   when = {
     created: (props) => {
+      this.store = {
+        subscribe: spy(),
+        dispatch: spy(),
+        getState: spy(),
+      };
       this.component = mount(<Provider
         children={<div />}
-        store={{
-          subscribe: () => {},
-          dispatch: () => {},
-          getState: () => {},
-        }}
+        store={this.store}
         {...props}
       />);
 
@@ -33,6 +35,7 @@ export default class AboutDriver {
   }
 
   get = {
+    store: () => this.store,
     isOk: () => Boolean(typeof this.component === 'object' && Object.keys(this.component).length > 0),
   }
 

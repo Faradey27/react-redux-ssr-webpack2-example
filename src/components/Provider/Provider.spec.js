@@ -16,6 +16,10 @@ describe('Provider', () => {
     expect(driver.when.created().get.isOk()).toBeTruthy();
   });
 
+  it('should not warn when updated with same store', () => {
+    expect(driver.when.created().when.updateStore(driver.get.store()).is.warnCalled()).toBeFalsy();
+  });
+
   it('should called warn when store change', () => {
     expect(driver.when.created().when.updateStore().is.warnCalled()).toBeTruthy();
   });

@@ -13,6 +13,8 @@ const addNodeToDom = (params) => {
   global.document.body.appendChild(newNode);
 };
 
+process.env.IS_SERVER = 1;
+
 
 describe('Client', () => {
   let init = null;
