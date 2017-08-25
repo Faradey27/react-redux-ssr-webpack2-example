@@ -1,4 +1,4 @@
-import { mountAppOnPage } from './../../../../test/helpers/mount.js';
+import { mountAppOnPage } from './../../../test/helpers/mount.js';
 
 export default class HomeDriver {
   when = {

@@ -25,7 +25,7 @@ export default function createStore(history, helpers, data) {
 
   if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
     const { persistState } = require('redux-devtools');
-    const DevTools = require('../../client/components/DevTools');
+    const DevTools = require('../components/DevTools');
 
     enhancers = [ // eslint-disable-line
       ...enhancers,

@@ -16,14 +16,14 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 
-import config from './../shared/configs/appConfig';
+import config from './../configs/appConfig';
 
-import Provider from './../shared/components/Provider';
-import Api from './../shared/helpers/Api';
-import Html from './../shared/helpers/Html';
-import getRoutes from './../shared/routes';
+import Provider from './../components/Provider';
+import Api from './../helpers/Api';
+import Html from './../helpers/Html';
+import getRoutes from './../routes';
 
-import createStore from './../shared/redux/create';
+import createStore from './../redux/create';
 
 import http2Push from './middlewares/http2Push';
 import { start } from './services/bootstrap';
@@ -64,6 +64,8 @@ app.use(express.static(pathToStatic));
 app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}])); // TODO remove this like when real appear will appear
 
 app.use((req, res) => {
+  console.log('ASKED', req.url);
+  console.time('res');
   if (process.env.NODE_ENV !== 'production') {
     webpackIsomorphicTools.refresh();
   }
@@ -134,6 +136,8 @@ app.use((req, res) => {
           />
         );
 
+        console.log('SEND');
+        console.timeEnd('res');
         res.send(`<!doctype html>
           ${stringToReturn}`);
       }).catch(/* istanbul ignore next */ (mountError) => {

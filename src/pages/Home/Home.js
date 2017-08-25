@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IndexLink } from 'react-router';
 import { asyncConnect } from 'redux-connect';
-import { loadWidgets } from './../../../shared/redux/modules/widgets/actions';
+import { loadWidgets } from './../../redux/modules/widgets/actions';
 
 import HeaderBar from './../../components/HeaderBar';
 

@@ -12,10 +12,10 @@ import { useScroll } from 'react-router-scroll';
 import 'reset-css/reset.css';
 import './styles.scss';
 
-import Provider from './../shared/components/Provider';
-import createStore from './../shared/redux/create';
-import getRoutes from './../shared/routes';
-import Api from './../shared/helpers/Api';
+import Provider from './components/Provider';
+import createStore from './redux/create';
+import getRoutes from './routes';
+import Api from './helpers/Api';
 
 import isOnline from './utils/isOnline';
 
@@ -25,8 +25,8 @@ const dest = document.getElementById('content');
 const hotModuleReplacmentSetup = (store, render) => {
   /* istanbul ignore next */
   if (module.hot) {
-    module.hot.accept('./../shared/routes', () => {
-      const nextRoutes = require('./../shared/routes')(store);
+    module.hot.accept('./routes', () => {
+      const nextRoutes = require('./routes')(store);
 
       render(nextRoutes);
     });

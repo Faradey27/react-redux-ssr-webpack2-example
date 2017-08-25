@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import config from '../../shared/configs/appConfig';
+import config from './../configs/appConfig';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 

@@ -1,6 +1,6 @@
 import About from './index';
 
-import { mountWithContext, mountAppOnPage } from './../../../../test/helpers/mount.js';
+import { mountWithContext, mountAppOnPage } from './../../../test/helpers/mount.js';
 
 export default class AboutDriver {
   when = {

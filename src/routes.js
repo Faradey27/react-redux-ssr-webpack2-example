@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import { IndexRoute, Route, Redirect } from 'react-router';
-import App from './../shared/components/App';
-import Home from './../client/pages/Home';
+import App from './components/App';
+import Home from './pages/Home';
 
 // eslint-disable-next-line import/no-dynamic-require
 if (typeof System === 'undefined') {
@@ -20,11 +20,11 @@ export default () => (
       path="/home"
     />
     <Route
-      getComponent={() => System.import('./../client/pages/About')}
+      getComponent={() => System.import('./pages/About')}
       path="/about"
     />
     <Route
-      getComponent={() => System.import('./../client/pages/NotFound')}
+      getComponent={() => System.import('./pages/NotFound')}
       path="*"
       status={404}
     />

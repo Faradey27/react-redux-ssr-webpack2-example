@@ -1,6 +1,7 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
 import NotFound from './index';
 
-import { mountWithContext, mountAppOnPage } from './../../../../test/helpers/mount.js';
+import { mountWithContext, mountAppOnPage } from './../../../test/helpers/mount.js';
 
 export default class NotFoundDriver {
   when = {

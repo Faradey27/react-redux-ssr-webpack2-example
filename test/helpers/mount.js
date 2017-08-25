@@ -5,11 +5,11 @@ import { match } from 'react-router';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import i18n from './../../src/shared/i18n';
-import Api from './../../src/shared/helpers/Api';
-import createStore from './../../src/shared/redux/create';
-import Provider from './../../src/shared/components/Provider';
-import getRoutes from './../../src/shared/routes';
+import i18n from './../../src/i18n';
+import Api from './../../src/helpers/Api';
+import createStore from './../../src/redux/create';
+import Provider from './../../src/components/Provider';
+import getRoutes from './../../src/routes';
 
 export const mountAppOnPage = (path) => {
   const mockStore = {};
@@ -37,24 +37,6 @@ export const mountAppOnPage = (path) => {
       });
     });
   });
-
-
-  /* return mount(
-    <Provider
-      key="provider"
-      store={store}
-    >
-      <Router
-        history={history}
-        render={renderReduxAsync}
-      >
-        <Route
-          component={renderComponent}
-          path="/"
-        />
-      </Router>
-    </Provider>
-  );*/
 };
 
 export const mountWithContext = (component, context = {}) => mount(

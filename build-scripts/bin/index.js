@@ -1,5 +1,5 @@
 const spawn = require('react-dev-utils/crossSpawn');
-const args = process.argv.slice(2);
+const args = process.argv.slice(2); // eslint-disable-line
 
 const scriptIndex = args.findIndex((x) =>
   x === 'build' || x === 'eject' || x === 'start' || x === 'test');
@@ -24,119 +24,32 @@ const handleError = (result) => {
   }
 };
 
-switch (script) {
-  case 'test': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/runTests.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
+const spawnScript = (name) => spawn.sync(
+  'node',
+  nodeArgs.
+    concat(require.resolve(`../scripts/${name}.js`)).
+    concat(args.slice(scriptIndex + 1)),
+  { stdio: 'inherit' }
+);
 
-    handleError(result);
-    break;
-  }
-  case 'test:unit': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/runUnitTests.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
+const scriptsNameMap = {
+  test: 'runTests',
+  'test:unit': 'runUnitTests',
+  'test:e2e': 'runE2ETests',
+  build: 'build',
+  lint: 'lint',
+  'locales:po': 'localesPo',
+  'locales:json': 'localesJson',
+  'start:prod': 'startProd',
+  'start:dev': 'startDev',
+  start: 'startDev',
+};
 
-    handleError(result);
-    break;
-  }
-  case 'test:e2e': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/runE2ETests.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
+if (scriptsNameMap[script]) {
+  const result = spawnScript(scriptsNameMap[script]);
 
-    handleError(result);
-    break;
-  }
-  case 'build': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/build.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  case 'lint': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/lint.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  case 'locales:po': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/localesPo.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  case 'locales:json': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/localesJson.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  case 'start:prod': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/startProd.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  case 'start:dev':
-  case 'start': {
-    const result = spawn.sync(
-      'node',
-      nodeArgs.
-        concat(require.resolve('../scripts/startDev.js')).
-        concat(args.slice(scriptIndex + 1)),
-      { stdio: 'inherit' }
-    );
-
-    handleError(result);
-    break;
-  }
-  default: {
-    console.info(`Unknown script "${script}".`);
-    console.info('Perhaps you need to update build-scripts?');
-    break;
-  }
+  handleError(result);
+} else {
+  console.info(`Unknown script "${script}".`);
+  console.info('Perhaps you need to update build-scripts?');
 }

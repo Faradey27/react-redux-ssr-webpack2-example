@@ -1,5 +1,5 @@
 /* istanbul ignore next */
-import Provider from './../../../shared/components/Provider';
+import Provider from './../../components/Provider';
 
 export default (render, store) => {
   if (process.env.NODE_ENV !== 'production' && !window.devToolsExtension) {

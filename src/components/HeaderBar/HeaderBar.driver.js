@@ -1,5 +1,6 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
 import HeaderBar from './index';
-import { mountWithContext } from './../../../../test/helpers/mount.js';
+import { mountWithContext } from './../../../test/helpers/mount.js';
 
 export default class HeaderBarDriver {
   when = {

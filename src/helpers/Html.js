@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
@@ -12,7 +12,7 @@ import serialize from 'serialize-javascript';
  * HTML doctype declaration, which is added to the rendered output
  * by the server.js file.
  */
-export default class Html extends Component {
+export default class Html extends React.Component {
   static propTypes = {
     assets: PropTypes.object,
     component: PropTypes.node.isRequired,
