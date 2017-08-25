@@ -64,8 +64,6 @@ app.use(express.static(pathToStatic));
 app.use('/v1/api/widgets', (req, res) => res.json([{}, {}, {}])); // TODO remove this like when real appear will appear
 
 app.use((req, res) => {
-  console.log('ASKED', req.url);
-  console.time('res');
   if (process.env.NODE_ENV !== 'production') {
     webpackIsomorphicTools.refresh();
   }
@@ -136,8 +134,6 @@ app.use((req, res) => {
           />
         );
 
-        console.log('SEND');
-        console.timeEnd('res');
         res.send(`<!doctype html>
           ${stringToReturn}`);
       }).catch(/* istanbul ignore next */ (mountError) => {
