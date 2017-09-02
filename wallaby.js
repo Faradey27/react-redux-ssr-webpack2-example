@@ -9,6 +9,7 @@ module.exports = (wallaby) => ({
     'static/manifest.json',
     'static/**/*.js',
     'static/**/*.css',
+    'static/**/*.json',
     'src/**/*.json',
     'lang/locales/json/*.json',
     { pattern: 'test/**/*.spec.js', ignore: true },
